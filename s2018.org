@@ -4,8 +4,13 @@
     - [ ] implementation
     - [ ] running time analysis
 *** merge sort
-    - [ ] implementation
-    - [ ] running time analysis
+    - [X] implementation
+    - [X] running time analysis
+      - time: O(nlogn)
+        - recursion depth is logn
+        - merge is O(n)
+      - space: O(n)
+        - merge needs to allocate extra space
 *** quick sort
     - [ ] implementation
     - [ ] running time analysis
