@@ -17,8 +17,12 @@
       - space: O(n)
         - merge needs to allocate extra space
 *** quick sort
-    - [ ] implementation
-    - [ ] running time analysis
+    - [X] implementation
+    - [X] running time analysis
+      - running time depends on the recursion depth
+        - best case: O(nlogn) (good pivot)
+        - worst case: O(n^2) (pivot always max or min)
+      - space TODO
 ** TODO Trees
 *** construction
 *** traversal
