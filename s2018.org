@@ -1,8 +1,13 @@
 * Coding
 ** TODO Sorting
 *** insertion sort
-    - [ ] implementation
-    - [ ] running time analysis
+    - [X] implementation
+    - [X] running time analysis
+      - time: O(n^2)
+        - iterating array is Theta(n)
+        - find right place to insert: O(n)
+      - space: O(1)
+        - no need to alloc
 *** merge sort
     - [X] implementation
     - [X] running time analysis
