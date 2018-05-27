@@ -19,17 +19,18 @@ func (h *heap) Insert(key int) {
 	h.slice = append(h.slice, key)
 
 	// fix up
-	for i := h.lastIndex(); ; {
-		pi, ok := h.parentIndex(i)
+	ci := h.lastIndex()
+	for {
+		pi, ok := h.parentIndex(ci)
 		if !ok {
 			break
 		}
 
-		if h.slice[pi] >= h.slice[i] {
+		if h.slice[pi] >= h.slice[ci] {
 			break
 		} else {
-			h.slice[pi], h.slice[i] = h.slice[i], h.slice[pi]
-			i = pi
+			h.slice[pi], h.slice[ci] = h.slice[ci], h.slice[pi]
+			ci = pi
 		}
 	}
 }
