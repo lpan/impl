@@ -12,66 +12,71 @@ type Heap interface {
 }
 
 type heap struct {
-	slice []int
+	bt bintree
 }
 
 func (h *heap) Insert(key int) {
-	h.slice = append(h.slice, key)
+	h.bt = append(h.bt, key)
 
 	// fix up
-	ci := h.lastIndex()
+	ci := h.bt.lastIndex()
 	for {
-		pi, ok := h.parentIndex(ci)
+		pi, ok := h.bt.parentIndex(ci)
 		if !ok {
 			break
 		}
 
-		if h.slice[pi] >= h.slice[ci] {
+		if h.bt[pi] >= h.bt[ci] {
 			break
 		} else {
-			h.slice[pi], h.slice[ci] = h.slice[ci], h.slice[pi]
+			h.bt[pi], h.bt[ci] = h.bt[ci], h.bt[pi]
 			ci = pi
 		}
 	}
 }
 
 func (h *heap) DeleteMax() (int, bool) {
-	if len(h.slice) == 0 {
+	if len(h.bt) == 0 {
 		return -1, false
 	}
 
-	max := h.slice[0]
+	max := h.bt[0]
 
 	// replace root with the last element
-	last := h.slice[h.lastIndex()]
-	h.slice[0] = last
+	last := h.bt[h.bt.lastIndex()]
+	h.bt[0] = last
 
-	// fix down
+	h.fixDown()
+
+	h.bt = h.bt[:len(h.bt)-1]
+	return max, true
+}
+
+func (h *heap) fixDown() {
 	var pi, ci int
 	for {
-		li, ok := h.leftChildIndex(pi)
+		li, ok := h.bt.leftChildIndex(pi)
 		if !ok {
 			break
 		}
 
-		ri, ok := h.rightChildIndex(pi)
+		ri, ok := h.bt.rightChildIndex(pi)
 		if !ok {
 			ci = li
-		} else if h.slice[ri] > h.slice[li] {
+		} else if h.bt[ri] > h.bt[li] {
 			ci = ri
 		} else {
 			ci = li
 		}
 
-		h.slice[pi], h.slice[ci] = h.slice[ci], h.slice[pi]
+		h.bt[pi], h.bt[ci] = h.bt[ci], h.bt[pi]
 		pi = ci
 	}
-
-	h.slice = h.slice[:len(h.slice)-1]
-	return max, true
 }
 
-func (h *heap) parentIndex(i int) (int, bool) {
+type bintree []int
+
+func (bintree) parentIndex(i int) (int, bool) {
 	// if node is root, return -1 (no parent)
 	if i == 0 {
 		return -1, false
@@ -84,22 +89,22 @@ func (h *heap) parentIndex(i int) (int, bool) {
 	return (i - 1) / 2, true
 }
 
-func (h *heap) leftChildIndex(i int) (int, bool) {
+func (bt bintree) leftChildIndex(i int) (int, bool) {
 	target := 2*i + 1
-	if target < len(h.slice) {
+	if target < len(bt) {
 		return target, true
 	}
 	return target, false
 }
 
-func (h *heap) rightChildIndex(i int) (int, bool) {
+func (bt bintree) rightChildIndex(i int) (int, bool) {
 	target := 2*i + 2
-	if target < len(h.slice) {
+	if target < len(bt) {
 		return target, true
 	}
 	return target, false
 }
 
-func (h *heap) lastIndex() int {
-	return len(h.slice) - 1
+func (bt bintree) lastIndex() int {
+	return len(bt) - 1
 }
