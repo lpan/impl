@@ -56,7 +56,7 @@ func (g graph) Find(vertex string) []string {
 }
 
 func (g graph) Find2(vertex string) []string {
-	// lock queue and visited
+	// lock queue
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
@@ -85,12 +85,12 @@ func (g graph) Find2(vertex string) []string {
 		}
 
 		wg.Add(1)
+		visited[el] = struct{}{}
 		go func() {
 			fmt.Println("looking up", el)
 			children := g.lookup(el)
 
 			mu.Lock()
-			visited[el] = struct{}{}
 			queue = append(queue, children...)
 			mu.Unlock()
 			wg.Done()
@@ -104,9 +104,8 @@ func (g graph) Find2(vertex string) []string {
 	return result
 }
 
-// it is possible to look up the same vertex MULTIPLE times tho.
 func (g graph) Find3(vertex string, tc int) []string {
-	// lock queue and visited
+	// lock queue
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 	sem := make(chan struct{}, tc)
@@ -138,12 +137,12 @@ func (g graph) Find3(vertex string, tc int) []string {
 		sem <- struct{}{}
 
 		wg.Add(1)
+		visited[el] = struct{}{}
 		go func() {
 			fmt.Println("looking up", el)
 			children := g.lookup(el)
 
 			mu.Lock()
-			visited[el] = struct{}{}
 			queue = append(queue, children...)
 			mu.Unlock()
 			wg.Done()
