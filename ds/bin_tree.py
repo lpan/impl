@@ -141,6 +141,17 @@ def postorder_iter(tree, visit):
     while result:
         visit(result.pop())
 
+@traverser
+def level_order(tree, visit):
+    queue = [tree]
+
+    while queue:
+        node = queue.pop()
+        if node:
+            visit(node)
+            queue.insert(0, node.left)
+            queue.insert(0, node.right)
+
 if __name__ == "__main__":
     tree = default_tree()
     print("preorder:", preorder(tree))
@@ -149,3 +160,4 @@ if __name__ == "__main__":
     print("inorder:", inorder_iter(tree))
     print("postorder:", postorder(tree))
     print("postorder:", postorder_iter(tree))
+    print("levelorder:", level_order(tree))
