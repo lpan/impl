@@ -3,7 +3,7 @@ package ds
 import (
 	"testing"
 
-	st "github.com/lpan/interviews/sorting/sortingtest"
+	st "github.com/lpan/impl/sorting/sortingtest"
 )
 
 func prepend(slice []int, i int) []int {

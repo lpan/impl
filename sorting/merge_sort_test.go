@@ -3,7 +3,7 @@ package sorting
 import (
 	"testing"
 
-	st "github.com/lpan/interviews/sorting/sortingtest"
+	st "github.com/lpan/impl/sorting/sortingtest"
 )
 
 func Test_MergeSort(t *testing.T) {
