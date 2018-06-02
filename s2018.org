@@ -1,5 +1,5 @@
 * Coding
-** TODO Sorting
+** DONE Sorting
 *** insertion sort
     - [X] implementation
     - [X] running time analysis
@@ -23,12 +23,15 @@
         - best case: O(nlogn) (good pivot)
         - worst case: O(n^2) (pivot always max or min)
       - space TODO
+** TODO Backtracking
+   - [ ] find all combinations/permutations of a string
 ** TODO Trees
 *** construction
+    - Done in heap.go
 *** traversal
-**** inorder
-**** postorder
-**** preorder
+**** DONE inorder
+**** DONE postorder
+**** DONE preorder
 ** TODO Graphs
 *** construction
 **** objects and pointers
