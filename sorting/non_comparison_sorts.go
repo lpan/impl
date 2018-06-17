@@ -1,7 +1,5 @@
 package sorting
 
-import "fmt"
-
 // CountSortLeft uses the left boundary of the position
 // Complexity: O(n + K)
 //   - n: number of elements
